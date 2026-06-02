@@ -431,6 +431,7 @@ PromQL is the query language for Prometheus metrics. If you've written SolarWind
 #### Interface Utilization (% of Link Speed)
 
 SolarWinds shows this as the colored bar on interface detail pages.
+
 PromQL:
 
 ```promql
@@ -448,6 +449,7 @@ Breakdown:
 #### Top 10 Busiest Ports
 
 SolarWinds: "Top 10 Interfaces by Percent Utilization" resource.
+
 PromQL:
 
 ```promql
@@ -459,6 +461,7 @@ topk(10,
 #### Ports with Errors (Last Hour)
 
 SolarWinds: "Interface Errors & Discards" resource.
+
 PromQL:
 
 ```promql
@@ -470,6 +473,7 @@ increase(ifInErrors{job="integrations/snmp"}[1h]) > 0
 #### Link Down (Admin Up, Oper Down)
 
 SolarWinds: Node detail page shows "Interface Status" with red/green indicators.
+
 PromQL:
 
 ```promql
@@ -483,6 +487,7 @@ This is the classic "cable unplugged" or "far-end device down" detection.
 #### Device Uptime (Has It Rebooted?)
 
 SolarWinds: "Last Boot" field on Node Summary.
+
 PromQL:
 
 ```promql
