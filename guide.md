@@ -32,22 +32,46 @@ The single biggest hurdle is vocabulary. Here's the Rosetta Stone:
 
 ## Architecture: What Replaces Your NMS Server
 
-```
-                                        ┌──────────────────────┐
-┌──────────┐    SNMP (UDP 161)          │                      │
-│ Switches ├──────────┐                 │   Grafana Cloud      │
-│ Routers  │          │                 │                      │
-│ Firewalls│          ▼                 │  ┌──────────────┐    │
-│ Load Bal.│   ┌─────────────┐  HTTPS   │  │ Prometheus   │    │
-│ UPS/PDU  │   │ Grafana     ├──────────┤  │ (metrics)    │    │
-│ Wireless │   │ Alloy       │          │  ├──────────────┤    │
-│ APs      │   │             │          │  │ Loki (logs)  │    │
-└──────────┘   │ prometheus. │          │  ├──────────────┤    │
-               │ exporter.   │          │  │ Grafana      │    │
-               │ snmp        │          │  │ (dashboards) │    │
-               └─────────────┘          │  └──────────────┘    │
-                 Deployed in your        └──────────────────────┘
-                 network / DC                    Hosted
+```mermaid
+flowchart LR
+    subgraph onprem["Your Network / Data Center"]
+        direction TB
+        switches["Switches"]
+        routers["Routers"]
+        firewalls["Firewalls"]
+        loadbal["Load Balancers"]
+        ups["UPS / PDU"]
+        wireless["Wireless APs"]
+        alloy["Grafana Alloy\nprometheus.exporter.snmp"]
+    end
+
+    subgraph cloud["Grafana Cloud (Hosted)"]
+        prometheus["Prometheus\n(metrics)"]
+        loki["Loki\n(logs)"]
+        grafana["Grafana\n(dashboards)"]
+    end
+
+    switches -- "SNMP\nUDP 161" --> alloy
+    routers -- "SNMP\nUDP 161" --> alloy
+    firewalls -- "SNMP\nUDP 161" --> alloy
+    loadbal -- "SNMP\nUDP 161" --> alloy
+    ups -- "SNMP\nUDP 161" --> alloy
+    wireless -- "SNMP\nUDP 161" --> alloy
+
+    alloy -- "HTTPS 443\nremote_write" --> prometheus
+    alloy -- "HTTPS 443\nloki push" --> loki
+    prometheus --> grafana
+    loki --> grafana
+
+    classDef device fill:#E0830F,stroke:#FF9830,color:#fff
+    classDef collector fill:#2A7AB5,stroke:#3D96D4,color:#fff
+    classDef backend fill:#6E56CF,stroke:#8B7BD4,color:#fff
+    classDef ui fill:#37872D,stroke:#56A64B,color:#fff
+
+    class switches,routers,firewalls,loadbal,ups,wireless device
+    class alloy collector
+    class prometheus,loki backend
+    class grafana ui
 ```
 
 **Alloy** is the only component you deploy on-prem. It runs on a Linux VM or container near your network devices. It:
