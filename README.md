@@ -1,5 +1,7 @@
 # Network Monitoring with Prometheus
 
+![Network Infrastructure Overview Dashboard](https://raw.githubusercontent.com/scarolan/grafana-cloud-networking-demo/main/dashboards/networking_screenshot.png)
+
 Reference materials for monitoring network infrastructure (routers, switches, firewalls, load balancers) using Grafana Cloud and Prometheus.
 
 ## What's Here

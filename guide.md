@@ -1,5 +1,7 @@
 # Network Device Monitoring with Grafana Cloud
 
+![Network Infrastructure Overview Dashboard](https://raw.githubusercontent.com/scarolan/grafana-cloud-networking-demo/main/dashboards/networking_screenshot.png)
+
 A reference guide for network engineers moving from SolarWinds, ThousandEyes, PRTG, or similar NMS platforms to Grafana Cloud with Prometheus.
 
 ## How to Read This Guide
