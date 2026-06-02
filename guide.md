@@ -430,7 +430,8 @@ PromQL is the query language for Prometheus metrics. If you've written SolarWind
 
 #### Interface Utilization (% of Link Speed)
 
-SolarWinds shows this as the colored bar on interface detail pages. In PromQL:
+SolarWinds shows this as the colored bar on interface detail pages.
+PromQL:
 
 ```promql
 rate(ifHCInOctets{job="integrations/snmp"}[5m]) * 8
@@ -446,7 +447,8 @@ Breakdown:
 
 #### Top 10 Busiest Ports
 
-SolarWinds: "Top 10 Interfaces by Percent Utilization" resource. PromQL:
+SolarWinds: "Top 10 Interfaces by Percent Utilization" resource.
+PromQL:
 
 ```promql
 topk(10,
@@ -456,7 +458,8 @@ topk(10,
 
 #### Ports with Errors (Last Hour)
 
-SolarWinds: "Interface Errors & Discards" resource. PromQL:
+SolarWinds: "Interface Errors & Discards" resource.
+PromQL:
 
 ```promql
 increase(ifInErrors{job="integrations/snmp"}[1h]) > 0
@@ -466,7 +469,8 @@ increase(ifInErrors{job="integrations/snmp"}[1h]) > 0
 
 #### Link Down (Admin Up, Oper Down)
 
-SolarWinds: Node detail page shows "Interface Status" with red/green indicators. PromQL:
+SolarWinds: Node detail page shows "Interface Status" with red/green indicators.
+PromQL:
 
 ```promql
 ifAdminStatus{job="integrations/snmp"} == 1
@@ -478,7 +482,8 @@ This is the classic "cable unplugged" or "far-end device down" detection.
 
 #### Device Uptime (Has It Rebooted?)
 
-SolarWinds: "Last Boot" field on Node Summary. PromQL:
+SolarWinds: "Last Boot" field on Node Summary.
+PromQL:
 
 ```promql
 sysUpTime{job="integrations/snmp"} / 100 / 86400
