@@ -381,7 +381,7 @@ This is the equivalent of the SolarWinds "Test" button on the Node properties pa
 
 ```bash
 # SNMP v2c — does the device respond?
-snmpwalk -v2c -c $SNMP_COMMUNITY 10.0.1.1 sysDescr
+snmpwalk -v2c -c "$SNMP_COMMUNITY" 10.0.1.1 sysDescr
 
 # Expected output:
 # SNMPv2-MIB::sysDescr.0 = STRING: Cisco IOS Software, C9300 Software...
